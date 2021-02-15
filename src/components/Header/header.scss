@@ -1,0 +1,36 @@
+@import '../../assests/styles/mixins.scss';
+@import '../../assests/styles/variables.scss';
+
+.header {
+    @include main;
+    background: $primary;
+    &__container {
+        @include container;
+        height: 70px;
+        flex-direction: row-reverse;
+        align-items: center;
+    }
+    &_dark {
+        background: $primaryDark;
+    }
+    &__mode {
+        width: 45px;
+        height: 20px;
+        border-radius: 30px;
+        background: #73a7eb;
+        display: flex;
+        align-items: center;
+        div {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: #f9ff4d;
+        }
+        &_dark {
+            flex-direction: row-reverse;
+            div {
+                background: #b6c4d6;
+            }
+        }
+    }
+}
