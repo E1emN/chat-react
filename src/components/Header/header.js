@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import './header.scss';
 import { useStore } from 'effector-react';
 import { $isDark, changeMode } from '../../store/mode';
+import { BurgerMenu } from '../BurgerMenu/burgerMenu';
 
 export const Header = () => {
 
@@ -14,6 +15,7 @@ export const Header = () => {
     return(
         <header className={isDark ? 'header header_dark' : 'header'}>
             <div className="header__container">
+                <BurgerMenu />
                 <div className={isDark ? 'header__mode header__mode_dark' : 'header__mode'} onClick={changeMode}>
                     <div />
                 </div>

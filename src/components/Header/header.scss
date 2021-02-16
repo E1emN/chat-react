@@ -7,7 +7,7 @@
     &__container {
         @include container;
         height: 70px;
-        flex-direction: row-reverse;
+        justify-content: space-between;
         align-items: center;
     }
     &_dark {
@@ -20,6 +20,7 @@
         background: #73a7eb;
         display: flex;
         align-items: center;
+        cursor: pointer;
         div {
             width: 22px;
             height: 22px;

@@ -1,0 +1,119 @@
+@import '../../assests/styles/variables.scss';
+
+.burger {
+    &__buttons {
+        height: 30px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        cursor: pointer;
+        div {
+            width: 40px;
+            height: 5px;
+            background: $primary;
+        }
+        &_dark {
+            div {
+                background: $primaryDark !important;
+            }
+        }
+    }
+    &__overlay {
+        position: fixed;
+        left: 0;
+        top: 0;
+        z-index: 2;
+        width: 100vw; 
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.5);
+        cursor: pointer;
+    }
+    &__block {
+        position: relative;
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 270px;
+        height: 100vh;
+        z-index: 3;
+        animation: 0.5s show;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: $secondary;
+        &_closed {
+            animation: 0.5s close;
+        }
+        &_dark {
+            background: $secondaryDark;
+            color: $secondary;
+        }
+    }
+    &__user {
+        display: flex;
+        flex-direction: column;
+        margin-top: 90px;
+        img {
+            width: 85px;
+            height: 85px;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+        span {
+            margin-top: 30px;
+            font-size: 16px;
+            font-weight: 600;
+        }
+    }
+    &__menu {
+        list-style: none;
+        width: 90%;
+        margin-top: 30px;
+        li {
+            margin: 20px 0;
+            cursor: pointer;
+            font-size: 20px;
+        }
+    }
+    &__logout {
+        position: absolute;
+        bottom: 30px;
+        width: 90%;
+        cursor: pointer;
+        font-size: 20px;
+    }
+    &__close {
+        position: absolute;
+        right: 0;
+        top: 10px;
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+        div {
+            height: 100%;
+            width: 5px;
+            background: $primary;
+            position: absolute;
+            &:first-child {
+                transform: rotate(45deg);;
+            }
+            &:last-child {
+                transform: rotate(-45deg);
+            }
+        }
+        &_dark {
+            div {
+                background: $primaryDark;
+            }
+        }
+    }
+}
+
+@keyframes show {
+    0% { left: -270px; };
+    100% { left: 0; };
+}
+@keyframes close {
+    0% { left: 0; };
+    100% { left: -270px; };
+}
