@@ -1,0 +1,16 @@
+@import '../../assests/styles/variables.scss';
+
+.message {
+    width: 200px;
+    background: $primary;
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 10px;
+    &_1 {
+        margin-left: calc(100% - 220px);
+    }
+    &_dark {
+        background: $primaryDark;
+        color: #fff;
+    }
+}

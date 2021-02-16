@@ -1,0 +1,36 @@
+@import '../../assests/styles/variables.scss';
+
+.chat {
+    width: 270px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    &__avatar {
+        width: 45px;
+        height: 45px;
+        margin-left: 10px;
+    }
+    &__user {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        height: 45px;
+        margin-left: 10px;
+        span:first-child {
+            font-size: 14px;
+            font-weight: 600;
+        }
+        span:last-child {
+            font-size: 13px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+        }
+        &_dark {
+            color: #fff;
+        }
+    }
+}

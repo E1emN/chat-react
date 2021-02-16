@@ -1,0 +1,38 @@
+@import '../../assests/styles/mixins.scss';
+@import '../../assests/styles/variables.scss';
+
+.chats {
+    @include main;
+    background: $secondary;
+    min-height: 100vh;
+    &_dark {
+        background: $secondaryDark;
+    }
+    &__container {
+        @include container;
+        flex-direction: column;
+    }
+    &__create {
+        margin-top: 20px;
+        width: 120px;
+        height: 40px;
+        background: $primary;
+        border: none;
+        border-radius: 10px;
+        &_dark {
+            background: $primaryDark;
+            color: #fff;
+        }
+    }
+    &__wrapper {
+        margin-top: 10px;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+    &__chats {
+        width: 270px;
+        display: flex;
+        flex-direction: column;
+    }
+}
