@@ -1,0 +1,21 @@
+@import '../../assests/styles/variables.scss';
+
+.suspense {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &__loading {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        border-top: 2px solid $primary;
+        border-bottom: 2px solid $primary;
+        animation: 0.8s load infinite;
+    }
+}
+
+@keyframes load {
+    100% { transform: rotate(360deg); };
+}
