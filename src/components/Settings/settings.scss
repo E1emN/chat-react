@@ -1,0 +1,70 @@
+@import '../../assests/styles/mixins.scss';
+@import '../../assests/styles/variables.scss';
+
+.settings {
+    @include main;
+    min-height: 100vh;
+    &_dark {
+        background: $secondaryDark;
+    }
+    &__container {
+        @include container;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    &__avatar {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        img {
+            border-radius: 50%;
+            width: 100px;
+            object-fit: cover;
+            height: 100px;
+            margin-top: 50px;
+        }
+        span {
+            margin: 5px 0;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        &_dark {
+            span {
+                color: #fff;
+            }
+        }
+    } 
+    &__username {
+        margin-top: 50px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        input {
+            width: 200px;
+            height: 35px;
+            border: 1px solid #000;
+            border-radius: 10px;
+            padding-left: 10px;
+        }
+        button {
+            margin-top: 10px;
+            width: 70px;
+            height: 30px;
+            background: $primary;
+            border-radius: 10px;
+            border: none;
+        }
+        &_dark {
+            input {
+                color: #fff;
+                background: #000;
+                border-color: #fff;
+            }
+            button {
+                background: $primaryDark;
+                color: #fff;
+            }
+        }
+    }
+}

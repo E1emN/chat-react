@@ -2,10 +2,13 @@ import React, { useState } from 'react';
 import './burgerMenu.scss';
 import { $isDark } from '../../store/mode';
 import { useStore } from 'effector-react';
+import { useHistory } from 'react-router-dom';
 
 export const BurgerMenu = () => {
 
     const isDark = useStore($isDark);
+    const history = useHistory();
+
     const [isBurgerOpen, setBurgerOpen] = useState(false);
     const [isClosed, setClosed] = useState(false);
 
@@ -40,8 +43,8 @@ export const BurgerMenu = () => {
                             <span>@CooLLeeT</span>
                         </div>
                         <ul className="burger__menu">
-                            <li>Chats</li>
-                            <li>Settings</li>
+                            <li onClick={() => history.push('/')}>Chats</li>
+                            <li onClick={() => history.push('/settings')}>Settings</li>
                         </ul>
                         <span className="burger__logout">Log out</span>
                     </div>
