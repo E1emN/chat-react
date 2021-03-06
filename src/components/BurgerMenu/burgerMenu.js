@@ -3,6 +3,7 @@ import './burgerMenu.scss';
 import { $isDark } from '../../store/mode';
 import { useStore } from 'effector-react';
 import { useHistory } from 'react-router-dom';
+import firebase from '../../firebase';
 
 export const BurgerMenu = () => {
 
@@ -16,6 +17,12 @@ export const BurgerMenu = () => {
         setClosed(true);
         setTimeout(() => setBurgerOpen(false), 500);
         setTimeout(() => setClosed(false), 500);
+    };
+
+    const logOut = () => {
+        firebase.auth().signOut();
+        localStorage.clear();
+        window.location.replace('/sign-in');
     };
 
     return(
@@ -46,7 +53,7 @@ export const BurgerMenu = () => {
                             <li onClick={() => history.push('/')}>Chats</li>
                             <li onClick={() => history.push('/settings')}>Settings</li>
                         </ul>
-                        <span className="burger__logout">Log out</span>
+                        <span className="burger__logout" onClick={logOut}>Log out</span>
                     </div>
                 </>
             }

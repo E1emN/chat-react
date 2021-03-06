@@ -1,14 +1,16 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './signIn.scss';
 import { useFormik } from 'formik';
 import { $isDark } from '../../store/mode';
 import { useStore } from 'effector-react';
 import { useHistory } from 'react-router-dom';
+import firebase from '../../firebase';
 
 export const SignIn = () => {
 
     const isDark = useStore($isDark);
     const history = useHistory();
+    const [isLoading, setLoading] = useState(false);
 
     const formik = useFormik({
         initialValues: {
@@ -16,9 +18,18 @@ export const SignIn = () => {
             password: ''
         },
         onSubmit: values => {
-            console.log(values)
+            setLoading(true);
+            firebase.auth().signInWithEmailAndPassword(values.email, values.password)
+            .then((user) => {
+                localStorage.setItem('uid', user.user.uid);
+                window.location.replace('/');
+            })
+            .catch(e => {
+                setLoading(false)
+                alert(e.message);
+            })
         } 
-    })
+    });
 
     return(
         <div className={isDark ? 'sign-in sign-in_dark' : 'sign-in'}>
@@ -41,7 +52,7 @@ export const SignIn = () => {
                         required={true}
                         placeholder="password"
                     />
-                    <button>Sing In</button>
+                    <button>{isLoading ? 'loading...' : 'Sign In'}</button>
                     <span onClick={() => history.push('/sign-up')}>Sign Up</span>
                 </form>
             </div>
