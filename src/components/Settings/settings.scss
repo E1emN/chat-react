@@ -29,6 +29,12 @@
             cursor: pointer;
             font-size: 16px;
         }
+        label {
+            cursor: pointer;
+        }
+        input {
+            display: none;
+        }
         &_dark {
             span {
                 color: #fff;

@@ -34,6 +34,7 @@ export const SignUp = () => {
                     username: formik.values.username,
                     email: formik.values.email,
                     uid: user.user.uid,
+                    avatar: 'https://www.drupal.org/files/issues/default-avatar.png'
                 }).then(() => {
                     window.location.replace('/')
                 }).catch(e => {
