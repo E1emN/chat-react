@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './burgerMenu.scss';
 import { $isDark } from '../../store/mode';
 import { useStore } from 'effector-react';
 import { useHistory } from 'react-router-dom';
 import firebase from '../../firebase';
+import { $user, getUser } from '../../store/user';
 
 export const BurgerMenu = () => {
 
     const isDark = useStore($isDark);
+    const user = useStore($user);
     const history = useHistory();
 
     const [isBurgerOpen, setBurgerOpen] = useState(false);
@@ -25,6 +27,10 @@ export const BurgerMenu = () => {
         window.location.replace('/sign-in');
     };
 
+    useEffect(() => {
+        getUser();
+    }, []);
+    
     return(
         <div className="burger">
             <div className={isDark ? 'burger__buttons' : 'burger__buttons burger__buttons_dark'} onClick={() => setBurgerOpen(true)}>
@@ -47,7 +53,7 @@ export const BurgerMenu = () => {
                         </div>
                         <div className="burger__user">
                             <img alt="" src="https://fiverr-res.cloudinary.com/images/t_main1,q_auto,f_auto,q_auto,f_auto/gigs/111554483/original/83d513acbc4b3716c9a474086bb633a5de3c2d74/create-social-media-avatars-in-minimalist-style.jpg" />
-                            <span>@CooLLeeT</span>
+                            <span>@{user.username}</span>
                         </div>
                         <ul className="burger__menu">
                             <li onClick={() => history.push('/')}>Chats</li>

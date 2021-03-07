@@ -1,11 +1,32 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './settings.scss';
 import { useStore } from 'effector-react';
 import { $isDark } from '../../store/mode';
+import { $user, editUser } from '../../store/user';
+import { useFormik } from 'formik';
 
 export const Settings = () => {
 
     const isDark = useStore($isDark);
+    const user = useStore($user);
+
+    const formik = useFormik({
+        initialValues: {
+            username: ''
+        },
+        onSubmit: values => {
+            editUser(values.username);
+        },
+        enableReinitialize: true
+    });
+
+    useEffect(() => {
+        if (user.username) {
+            formik.setValues({
+                username: user.username
+            })
+        };
+    }, [user]);
 
     return(
         <div className={isDark ? 'settings settings_dark' : 'settings'}>
@@ -15,8 +36,13 @@ export const Settings = () => {
                     <span>Change avatar</span>
                     <span>Delete avatar</span>
                 </div>
-                <form className={isDark ? 'settings__username settings__username_dark' : 'settings__username'}>
-                    <input defaultValue="CooLLeeT" />
+                <form className={isDark ? 'settings__username settings__username_dark' : 'settings__username'} onSubmit={formik.handleSubmit}>
+                    <input
+                        name="username"
+                        value={formik.values.username}
+                        onChange={formik.handleChange}
+                        required={true}
+                    />
                     <button>save</button>
                 </form>
             </div>
