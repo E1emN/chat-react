@@ -1,5 +1,6 @@
 import { createEffect, createStore } from 'effector';
 import firebase from '../firebase';
+import { stopLoading } from './loading';
 
 const uid = localStorage.getItem('uid') || 's';
 const user = firebase.firestore().collection('users').doc(uid);
@@ -20,10 +21,11 @@ export const editUser = createEffect(async (username) => {
     user.update({
         username: username
     }).then(() => {
-        alert('saved!');
+        stopLoading();
         getUser();
     }).catch(e => {
         console.log(e);
+        stopLoading();
     });
 });
 
@@ -34,9 +36,10 @@ export const changeUseravatar = createEffect(async (file) => {
             avatar: avatarUrl
         }).then(() => {
             getUser();
-            alert('Changed!')
+            stopLoading();
         }).catch(e => {
             console.log(e);
+            stopLoading();
         })
     }).catch(e => {
         console.log(e)

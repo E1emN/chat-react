@@ -3,6 +3,7 @@ import './settings.scss';
 import { useStore } from 'effector-react';
 import { $isDark } from '../../store/mode';
 import { $user, editUser, changeUseravatar } from '../../store/user';
+import { startLoading } from '../../store/loading';
 import { useFormik } from 'formik';
 
 export const Settings = () => {
@@ -15,6 +16,7 @@ export const Settings = () => {
             username: ''
         },
         onSubmit: values => {
+            startLoading();
             editUser(values.username);
         },
         enableReinitialize: true
@@ -29,6 +31,7 @@ export const Settings = () => {
     }, [user]);
 
     const changeAvatar = (file) => {
+        startLoading();
         changeUseravatar(file);
     };
 

@@ -6,6 +6,7 @@ const HomePage = lazy(() => import('./pages/home'));
 const SignInPage = lazy(() => import('./pages/signin'));
 const SignUpPage = lazy(() => import('./pages/signUp'));
 const SettingsPage = lazy(() => import('./pages/settings'));
+const Loading = lazy(() => import('./components/Loading/loading'));
 
 export const App = () => {
     return(
@@ -17,6 +18,7 @@ export const App = () => {
                     <Route path="/sign-up" exact component={SignUpPage} />
                     <Route path='/settings' exact component={SettingsPage} />
                 </Switch>
+                <Loading />
             </Router>
         </Suspense>
     )

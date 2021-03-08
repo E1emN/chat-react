@@ -23,7 +23,7 @@ export const BurgerMenu = () => {
 
     const logOut = () => {
         firebase.auth().signOut();
-        localStorage.clear();
+        localStorage.removeItem('uid');
         window.location.replace('/sign-in');
     };
 

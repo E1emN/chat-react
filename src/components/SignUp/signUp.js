@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './signUp.scss';
 import { $isDark } from '../../store/mode';
+import { startLoading, stopLoading } from '../../store/loading';
 import { useStore } from 'effector-react';
 import { useFormik } from 'formik';
 import { useHistory } from 'react-router-dom';
@@ -27,6 +28,7 @@ export const SignUp = () => {
         },
         onSubmit: values => {
             setLoading(true);
+            startLoading();
             firebase.auth().createUserWithEmailAndPassword(values.email, values.password)
             .then(user => {
                 localStorage.setItem('uid', user.user.uid);
@@ -36,13 +38,16 @@ export const SignUp = () => {
                     uid: user.user.uid,
                     avatar: 'https://www.drupal.org/files/issues/default-avatar.png'
                 }).then(() => {
-                    window.location.replace('/')
+                    stopLoading();
+                    window.location.replace('/');
                 }).catch(e => {
                     localStorage.clear();
+                    stopLoading();
                     alert(e.message);
                     setLoading(false);
                 })
             }).catch(e => {
+                stopLoading();
                 alert(e.message);
                 setLoading(false);
             })

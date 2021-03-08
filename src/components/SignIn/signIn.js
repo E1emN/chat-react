@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './signIn.scss';
 import { useFormik } from 'formik';
 import { $isDark } from '../../store/mode';
+import { startLoading, stopLoading } from '../../store/loading';
 import { useStore } from 'effector-react';
 import { useHistory } from 'react-router-dom';
 import firebase from '../../firebase';
@@ -19,13 +20,16 @@ export const SignIn = () => {
         },
         onSubmit: values => {
             setLoading(true);
+            startLoading();
             firebase.auth().signInWithEmailAndPassword(values.email, values.password)
             .then((user) => {
                 localStorage.setItem('uid', user.user.uid);
+                stopLoading();
                 window.location.replace('/');
             })
             .catch(e => {
                 setLoading(false)
+                stopLoading();
                 alert(e.message);
             })
         } 
