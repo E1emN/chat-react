@@ -4,11 +4,20 @@ import { $isDark } from '../../store/mode';
 import { useStore } from 'effector-react';
 import { Chat } from '../Chat/chat';
 import { Conversation } from '../Conversation/conversation';
+//import firebase from '../../firebase';
 
 export const Chats = () => {
 
     const isDark = useStore($isDark);
     const [isNew, setNew] = useState(false);
+
+    // useEffect(() => {
+    //     firebase.firestore().collection('users').onSnapshot((users) => {
+    //         users.forEach(d => {
+    //             console.log(d.data());
+    //         })
+    //     })
+    // }, [])
 
     return(
         <div className={isDark ? 'chats chats_dark' : 'chats'}>

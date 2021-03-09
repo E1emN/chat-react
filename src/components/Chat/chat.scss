@@ -6,6 +6,13 @@
     display: flex;
     align-items: center;
     cursor: pointer;
+    border-radius: 10px;
+    &_selected {
+        background: #c1e6cf;
+        &_dark {
+            background: #4a49c4
+        }
+    }
     &__avatar {
         width: 45px;
         height: 45px;

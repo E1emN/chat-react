@@ -7,10 +7,8 @@ const HomePage = () => {
 
     useEffect(() => {
         firebase.auth().onAuthStateChanged(function(user) {
-            if (user) {
-              console.log(user)
-            } else {
-              window.location.replace('/sign-in');
+            if (!user) {
+                window.location.replace('/sign-in');
             }
           });
     }, [])

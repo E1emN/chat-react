@@ -8,7 +8,7 @@ export const Chat = () => {
     const isDark = useStore($isDark);
 
     return(
-        <div className="chat">
+        <div className={isDark ? 'chat chat_selected_dark' : 'chat chat_selected'}>
             <img alt="" className="chat__avatar" src="https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png" />
             <div className={isDark ? 'chat__user chat__user_dark' : 'chat__user'}>
                 <span>@username</span>

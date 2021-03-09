@@ -1,7 +1,7 @@
 @import '../../assests/styles/variables.scss';
 
 .conversation {
-    width: 100%;
+    width: calc(100% - 280px);
     height: calc(100vh - 145px);
     display: flex;
     flex-direction: column-reverse;
