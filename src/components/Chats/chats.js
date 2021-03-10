@@ -46,7 +46,7 @@ export const Chats = () => {
                                 key={c.id}
                                 id={c.id}
                                 users={c.users}
-                                last={c.conversation.length ? c.conversation[-1].message : ''}
+                                last={c.conversation.length ? c.conversation[c.conversation.length - 1].message : ''}
                             />
                         ))}
                     </div>

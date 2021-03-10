@@ -7,9 +7,10 @@ export const Message = (props) => {
 
     const { message, from } = props;
     const isDark = useStore($isDark);
+    const uid = localStorage.getItem('uid');
 
     return(
-        <div className={from === 1 ? 
+        <div className={from === uid ? 
             isDark ? 'message message_1 message_dark' : 'message message_1' : 
             isDark ? 'message message_dark' : 'message'}>
             {message}
