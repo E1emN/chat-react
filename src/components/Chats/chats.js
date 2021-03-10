@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './chats.scss';
 import { $isDark } from '../../store/mode';
 import { useStore } from 'effector-react';
 import { Chat } from '../Chat/chat';
 import { Conversation } from '../Conversation/conversation';
+import { getChats, $chats } from '../../store/chat';
 //import firebase from '../../firebase';
 
 export const Chats = () => {
 
     const isDark = useStore($isDark);
+    const chats = useStore($chats);
     const [isNew, setNew] = useState(false);
 
     // useEffect(() => {
@@ -19,6 +21,10 @@ export const Chats = () => {
     //     })
     // }, [])
 
+    useEffect(() => {
+        getChats();
+    }, [])
+    
     return(
         <div className={isDark ? 'chats chats_dark' : 'chats'}>
             <div className="chats__container">
@@ -35,8 +41,14 @@ export const Chats = () => {
                 }
                 <div className="chats__wrapper">
                     <div className="chats__chats">
-                        <Chat />
-                        <Chat />
+                        {chats.map(c => (
+                            <Chat
+                                key={c.id}
+                                id={c.id}
+                                users={c.users}
+                                last={c.conversation.length ? c.conversation[-1].message : ''}
+                            />
+                        ))}
                     </div>
                     <Conversation />
                 </div>

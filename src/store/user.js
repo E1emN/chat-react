@@ -11,7 +11,7 @@ export const getUser = createEffect(async () => {
         if (doc.exists) {
             return doc.data();
         }
-    });
+    }).catch(e => console.log(e));
     return response;
 });
 export const $user = createStore({})

@@ -11,7 +11,7 @@ export const BurgerMenu = () => {
     const isDark = useStore($isDark);
     const user = useStore($user);
     const history = useHistory();
-
+    
     const [isBurgerOpen, setBurgerOpen] = useState(false);
     const [isClosed, setClosed] = useState(false);
 

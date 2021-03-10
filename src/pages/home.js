@@ -7,7 +7,13 @@ const HomePage = () => {
 
     useEffect(() => {
         firebase.auth().onAuthStateChanged(function(user) {
-            if (!user) {
+            if (user) {
+                if (localStorage.getItem('uid') === null) {
+                    localStorage.clear();
+                    window.location.replace('/sign-in');  
+                }
+            } else {
+                localStorage.clear();
                 window.location.replace('/sign-in');
             }
           });
