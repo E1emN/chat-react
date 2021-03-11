@@ -4,20 +4,28 @@ import { $isDark } from '../../store/mode';
 import { useStore } from 'effector-react';
 import { Chat } from '../Chat/chat';
 import { Conversation } from '../Conversation/conversation';
-import { getChats, $chats } from '../../store/chat';
 import { $users, searchUsers } from '../../store/users';
 import { useFormik } from 'formik';
 import { User } from '../User/user';
+import firebase from '../../firebase';
 
 export const Chats = () => {
 
     const isDark = useStore($isDark);
-    const chats = useStore($chats);
     const users = useStore($users);
     const [isNew, setNew] = useState(false);
-
+    const [chats, setChats] = useState([]);
+    const uid = localStorage.getItem('uid');
+    
     useEffect(() => {
-        getChats();
+        const db = firebase.firestore();
+        db.collection('chats').where('users', 'array-contains', uid).onSnapshot(c => {
+            const chats = [];
+            c.forEach(chat => {
+                chats.push(chat.data())
+            });
+            setChats(chats);
+        })
     }, []);
 
     const formik = useFormik({
@@ -28,7 +36,7 @@ export const Chats = () => {
             searchUsers(values.username);
         }
     })
-    console.log(users);
+    console.log(new Date().getTime())
     return(
         <div className={isDark ? 'chats chats_dark' : 'chats'}>
             <div className="chats__container">
@@ -56,9 +64,10 @@ export const Chats = () => {
                             users.map(u => (
                                 <User
                                     key={u.uid}
-                                    id={u.id}
+                                    id={u.uid}
                                     avatar={u.avatar}
                                     username={u.username}
+                                    close={setNew}
                                 />
                             ))
                             :

@@ -1,19 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './conversation.scss';
 import { useFormik } from 'formik';
 import { $isDark } from '../../store/mode';
 import { useStore } from 'effector-react';
 import { Message } from '../Message/message';
-import { $selectedChat, $chat, getChat, addMessage } from '../../store/chat';
+import { $selectedChat, addMessage } from '../../store/chat';
 import firebase from '../../firebase';
 
 export const Conversation = () => {
 
     const isDark = useStore($isDark);
     const selectedChat = useStore($selectedChat);
-    const chat = useStore($chat);
     const uid = localStorage.getItem('uid');
-    const onSnapShot = firebase.firestore().collection('chats').doc(selectedChat).onSnapshot();
+    const [chat, setChat] = useState({}); 
 
     const formik = useFormik({
         initialValues: {
@@ -29,8 +28,14 @@ export const Conversation = () => {
     });
 
     useEffect(() => {
-        getChat(selectedChat);
-    }, [selectedChat, onSnapShot]);
+        const db = firebase.firestore();
+        db.collection('chats').doc(selectedChat).onSnapshot((c) => {
+            console.log('aee');
+            if (c.data()) {
+               setChat(c.data()); 
+            }
+        })
+    }, [selectedChat]);
 
     return(
         <div className="conversation">

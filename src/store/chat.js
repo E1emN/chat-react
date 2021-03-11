@@ -1,43 +1,24 @@
-import { createEffect, createStore, createEvent } from 'effector'; 
+import { createEffect, createStore, createEvent } from 'effector';
 import firebase from '../firebase';
+import { nanoid } from 'nanoid';
 
-
-
-
-export const getChats = createEffect(async () => {
-    const db = firebase.firestore();
-    const uid = localStorage.getItem('uid');
-    const response = await db.collection('chats').where('users', 'array-contains', uid).get()
-    .then(chats => {
-        const c = [];
-        chats.forEach(chat => {
-            c.push(chat.data());
-        });
-        return c;
-    })
-    return response;
-});
-export const $chats = createStore([])
-    .on(getChats.doneData, (_, chats) => chats);
-
+const db = firebase.firestore();
 
 export const setSelectedChat = createEvent();
 export const $selectedChat = createStore('0')
     .on(setSelectedChat, (_, id) => id);
 
 
-export const getChat = createEffect(async chatId => {
-    const db = firebase.firestore();
-    const response = await db.collection('chats').doc(chatId).get()
-    .then(chat => {
-        if (chat.exists) {
-            return chat.data()
-        }
-    });
-    return response
+export const cheateNewChat = createEffect(async (users) => {
+    console.log(users);
+    const chatId = nanoid();
+    await db.collection('chats').doc(chatId).set({
+        id: chatId,
+        users: users,
+        conversation: []
+    }).then(() => console.log('New chat created succcessfully')).catch(e => console.log(e));
+    setSelectedChat(chatId);
 });
-export const $chat = createStore({})
-    .on(getChat.doneData, (_, chat) => chat);
 
 
 export const addMessage = createEffect(async (handler) => {
