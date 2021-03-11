@@ -6,6 +6,23 @@
     display: flex;
     flex-direction: column-reverse;
     position: relative;
+    &__back {
+        width: 20px;
+        height: 20px;
+        display: none;
+        position: absolute;
+        top: 2px;
+        img {
+            width: 100%;
+            object-fit: cover;
+        }
+        &_dark {
+            background: $secondaryDark;
+            img {
+                filter: brightness(0) invert(1);
+            }
+        }
+    }
     &__messages {
         width: 100%;
         display: flex;
@@ -42,6 +59,19 @@
                 background: $primaryDark;
                 color: #fff;
             }
+        }
+    }
+}
+
+@media (max-width: 780px) {
+    .conversation {
+        width: 100%;
+        height: calc(100vh - 100px);
+        &__back {
+            display: block;
+        }
+        &__messages {
+            margin-top: 25px;
         }
     }
 }

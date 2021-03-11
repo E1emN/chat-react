@@ -5,6 +5,7 @@ import { useStore } from 'effector-react';
 import { Chat } from '../Chat/chat';
 import { Conversation } from '../Conversation/conversation';
 import { $users, searchUsers } from '../../store/users';
+import { $selectedChat } from '../../store/chat';
 import { useFormik } from 'formik';
 import { User } from '../User/user';
 import firebase from '../../firebase';
@@ -13,6 +14,7 @@ export const Chats = () => {
 
     const isDark = useStore($isDark);
     const users = useStore($users);
+    const selectedChat = useStore($selectedChat);
     const [isNew, setNew] = useState(false);
     const [chats, setChats] = useState([]);
     const uid = localStorage.getItem('uid');
@@ -36,10 +38,10 @@ export const Chats = () => {
             searchUsers(values.username);
         }
     })
-    console.log(new Date().getTime())
+   
     return(
         <div className={isDark ? 'chats chats_dark' : 'chats'}>
-            <div className="chats__container">
+            <div className={selectedChat !== '0' ? 'chats__container chats__container_hide' : 'chats__container'}>
                 {
                     isNew ? 
                     <form className={isDark ? 'chats__search chats__search_dark' : 'chats__search'} onSubmit={formik.handleSubmit}>
@@ -71,7 +73,8 @@ export const Chats = () => {
                                 />
                             ))
                             :
-                            chats.map(c => (
+                            chats.sort((a, b) => b.modified - a.modified)
+                            .map(c => (
                                 <Chat
                                     key={c.id}
                                     id={c.id}

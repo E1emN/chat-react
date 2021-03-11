@@ -10,12 +10,12 @@ export const $selectedChat = createStore('0')
 
 
 export const cheateNewChat = createEffect(async (users) => {
-    console.log(users);
     const chatId = nanoid();
     await db.collection('chats').doc(chatId).set({
         id: chatId,
         users: users,
-        conversation: []
+        conversation: [],
+        modified: new Date().getTime()
     }).then(() => console.log('New chat created succcessfully')).catch(e => console.log(e));
     setSelectedChat(chatId);
 });
@@ -24,6 +24,7 @@ export const cheateNewChat = createEffect(async (users) => {
 export const addMessage = createEffect(async (handler) => {
     const db = firebase.firestore();
     db.collection('chats').doc(handler.chatId).update({
-        conversation: handler.message
+        conversation: handler.message,
+        modified: new Date().getTime()
     })
 });

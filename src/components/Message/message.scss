@@ -6,6 +6,8 @@
     padding: 10px;
     border-radius: 10px;
     margin-top: 10px;
+    overflow-wrap: break-word;
+    transition: none !important;
     &_1 {
         margin-left: calc(100% - 220px);
     }
