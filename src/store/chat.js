@@ -1,6 +1,9 @@
 import { createEffect, createStore, createEvent } from 'effector'; 
 import firebase from '../firebase';
 
+
+
+
 export const getChats = createEffect(async () => {
     const db = firebase.firestore();
     const uid = localStorage.getItem('uid');
