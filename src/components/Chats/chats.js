@@ -84,6 +84,7 @@ export const Chats = () => {
                                     id={c.id}
                                     users={c.users}
                                     last={c.conversation.length ? c.conversation[c.conversation.length - 1].message : ''}
+                                    conversation={c.conversation}
                                 />
                             ))
                         }

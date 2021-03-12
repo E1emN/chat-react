@@ -7,13 +7,14 @@ import { setSelectedChat, $selectedChat } from '../../store/chat';
 
 export const Chat = (props) => {
 
-    const { users, last, id } = props;
+    const { users, last, id, conversation } = props;
     const uid = localStorage.getItem('uid');
     const isDark = useStore($isDark);
     const selectedChat = useStore($selectedChat);
 
     const userId = users.filter(el => ( el !== uid ))[0];
     const [userData, setUserData] = useState({});
+    const [newMessages, setNewMesssages] = useState(0);
     
     useEffect(() => {
         firebase.firestore().collection('users').doc(userId).get()
@@ -22,6 +23,15 @@ export const Chat = (props) => {
         })
     }, []);
 
+    useEffect(() => {
+        if (selectedChat !== id) {
+            const conversationLength = Number(localStorage.getItem(id));
+            setNewMesssages(conversation.length - conversationLength)
+        } else {
+            localStorage.setItem(id, conversation.length); 
+            setNewMesssages(0);
+        }
+    }, [conversation, selectedChat])
     return(
         <div 
             className={isDark ? selectedChat === id ? 'chat chat_selected_dark' : 'chat' : selectedChat === id ? 'chat chat_selected' : 'chat'}
@@ -32,6 +42,10 @@ export const Chat = (props) => {
                 <span>@{userData.username}</span>
                 <span>{last}</span>
             </div>
+            {newMessages > 0 &&
+            <div className="chat__new">
+                    {newMessages}
+            </div>}
         </div>
     )
 };
