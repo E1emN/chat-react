@@ -38,7 +38,7 @@ export const Conversation = () => {
     }, [selectedChat]);
 
     useEffect(() => {
-        ref.current.scrollIntoView();
+        ref.current && ref.current.scrollIntoView();
     }, [chat]);
 
     return(

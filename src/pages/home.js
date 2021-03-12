@@ -9,11 +9,11 @@ const HomePage = () => {
         firebase.auth().onAuthStateChanged(function(user) {
             if (user) {
                 if (localStorage.getItem('uid') === null) {
-                    localStorage.clear();
+                    localStorage.removeItem('uid');
                     window.location.replace('/sign-in');  
                 }
             } else {
-                localStorage.clear();
+                localStorage.removeItem('uid');
                 window.location.replace('/sign-in');
             }
           });

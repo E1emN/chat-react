@@ -37,7 +37,7 @@ export const Chats = () => {
         onSubmit: values => {
             searchUsers(values.username);
         }
-    })
+    });
    
     return(
         <div className={isDark ? 'chats chats_dark' : 'chats'}>
@@ -64,6 +64,10 @@ export const Chats = () => {
                         {
                             isNew ?
                             users.map(u => (
+                                u.uid !== uid &&
+                                chats.filter(el => (
+                                    el.users.includes(u.uid)
+                                )).length === 0 &&
                                 <User
                                     key={u.uid}
                                     id={u.uid}
